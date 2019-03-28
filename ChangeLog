@@ -1,0 +1,1140 @@
+26-Mar-2005 16:56  [wdm.1.28] prepare for release
+			none
+
+
+26-Mar-2005 16:32  [wdm.1.27] patch by Thomas Glanzmann
+			I don't think those changes was necessary, but if they
+			make someone's life little better, why not apply it? :)
+			It is said, that without these, wdm didn't work
+			correctly on sunray servers
+
+
+26-Mar-2005 14:26  [wdm.1.27] fix pam_open_session
+			"I'm running wdm-1.27 on FreeBSD 5.2-CURRENT. Since
+			version 1.26, PAM code seems not to work. ( This means
+			that ssh-agent is not started even if pam_ssh.so is
+			enabled. )
+
+			I have checked src/wdm/session.c. If system has
+			setusercontext(), I guess that pam_open_session() will
+			never be called." Reported by Kan Sasaki
+			<sasaki@fcc.ad.jp>
+
+
+22-Mar-2005 21:09  [wdm.1.27] update aa code
+			Antialiasing API has chaged in new wmaker. I need to
+			update code. New code uses some #ifdefs. They should go
+			away soon.
+
+
+20-Mar-2005 16:46  [wdm.1.27] update config
+			config file for aegis needs to be updated because
+			create_symlinks_before_build field is obsolete. I need
+			to use development_directory_style.source_file_symlink
+			field.
+
+
+19-Mar-2005 17:17  [wdm.1.27] fix fd leak - II
+			Last descriptor leaked si return value of mkstemp
+			function. I'm totally forgot, that this function
+			returns value. Thanks Michael Gernoth for reminding me
+			about it. :)
+
+
+19-Mar-2005 13:31  [wdm.1.27] fix fd leak - I
+			wdm leaks file descriptors to child processes. That's
+			bad. This change fixed all leaked pipes and file
+			descriptor for log. The only one left is leaked
+			descriptor for removed auth file
+
+
+09-Oct-2004 14:12  [wdm.1.27] Welsh translation
+			Welsh translation sent to me by Kevin Donnelly
+			<kevin@dotmon.com>
+
+
+05-Oct-2004 21:53  [wdm.1.27] problem with xdmcp and ipv6
+			Jennifer Elaan <jen@elaan.com> reported "that wdm drops
+			the connection to the X server after login but before
+			running Xsession.". Later she mailed me with "My
+			partner just isolated and corrected this problem. The
+			culprit is bad handling of IPv6 packets, which triggers
+			a debug message with invalid arguments."
+
+
+05-Oct-2004 21:49  [wdm.1.27] rebuild
+			glibc was updated. I need rebuild
+
+
+06-Mar-2004 12:52  [wdm.1.27] fix AUTHORS
+			add latest translators and contributors to AUTHORS
+			file.
+
+
+28-Feb-2004 14:19  [wdm.1.27] prepare for release
+			update NEWS
+
+
+28-Feb-2004 13:30  [wdm.1.26] fix warning on FreeBSD
+			found another warning while compiling on FreeBSD. "src/
+			wdm/util.c:139: warning: implicit declaration of
+			function `sigsetmask'." I don't see that on Linux.
+
+			I simplified part dealing with signals. The setpgrp
+			function differs on FreeBSD and Linux, but setpgid is
+			not. I tested everything at least to compile on Linux
+			and FreeBSD. I hope it will work on other BSD systems
+			as well.
+
+
+28-Feb-2004 13:28  [wdm.1.26] remove ExitLogin
+			ExitLogin is generally not needed. There is new option
+			to configure --enable-exitlogin for those who wants it.
+
+
+23-Feb-2004 11:35  [wdm.1.26] make clean
+			make clean target should remove everything that can be
+			rebuild wiht simple make. including generated config
+			files.
+
+
+23-Feb-2004 11:18  [wdm.1.26] fix text in INSTALL file
+			Section 4 about make clean and make distclean is not
+			correct. Also name of configs directory should be fixed
+			(it refers to ./config).
+
+
+22-Feb-2004 13:27  [wdm.1.26] typo in configure help
+			it displays BLACLBOX_PATH instead of BLACKBOX_PATH
+
+
+22-Feb-2004 13:11  [wdm.1.26] warnings in src/wdm/resource.c
+			src/wdm/resource.c cannot be recompiled with gcc-3.3.2
+			because of warnings: "src/wdm/resource.c:231: warning:
+			dereferencing type-punned pointer will break strict-
+			aliasing rules".
+
+			Everything that raised that warning was converted to
+			union. I hope nothing is broken.
+
+
+22-Feb-2004 10:37  [wdm.1.26] FreeBSD compatibility - III
+			don't use -D flag of install which is GNU specific and
+			is not available in BSD install. reported by Geir Ove
+			Myhr <myhr+wdm@fysmat.ntnu.no>
+
+
+21-Feb-2004 14:07  [wdm.1.26] obsolete header
+			remove inclusion of <malloc.h> it is obsolete and
+			should be replaced with <stdlib.h>. reported by Geir
+			Ove Myhr <myhr+wdm@fysmat.ntnu.no>
+
+
+21-Feb-2004 14:03  [wdm.1.26] i18n
+			Don't call gettext (directly) in wdmLogin if I18N is
+			not defined. reported by Geir Ove Myhr
+			<myhr+wdm@fysmat.ntnu.no>
+
+
+21-Feb-2004 13:54  [wdm.1.26] FreeBSD compatibility - II
+			remove wrong prototypes for setgrent etc. reported by
+			Geir Ove Myhr <myhr+wdm@fysmat.ntnu.no>
+
+
+21-Feb-2004 13:45  [wdm.1.26] FreeBSD compatibility
+			include <signal.h> into loghelpers.c explicitly.
+			reported by Geir Ove Myhr <myhr+wdm@fysmat.ntnu.no>
+
+
+01-Dec-2003 22:40  [wdm.1.26] wdm - SELinux support
+			SELinux support added by Tom Vogt <tom@lemuria.org>
+
+
+19-Nov-2003 22:48  [wdm.1.26] french translation
+			added french translation by Mathieu Roy
+			<yeupou@gnu.org>
+
+
+22-Sep-2003 21:18  [wdm.1.26] fix debug compilation
+			there's some calls to Debug left, can be reproduced
+			with --enable-debug option specified to configure
+			(reported by vlaad). I removed offending code, because
+			it's not used anywhere.
+
+
+19-Sep-2003 00:27  [wdm.1.26] prepare for release
+			update NEWS
+
+
+18-Sep-2003 21:27  [wdm.1.25] fix etc/configre.cook
+			etc/configure.cook fails if PACKAGE_VERSION is
+			undefined
+
+
+13-Sep-2003 11:23  [wdm.1.25] remove xdm sources
+			wdm doesn't require separate xdm source tree to build.
+			I never used this source tree for anything. I remove
+			xdm sources from tarball.
+
+
+13-Sep-2003 10:16  [wdm.1.25] fix pam rights escalation
+			this bug and fix is from kdm. I don't know if it
+			actually fixes something. I only added check for return
+			value of pam_setcred function call.
+
+
+10-Sep-2003 00:49  [wdm.1.25] add README.aa
+			this file should contain simple recipe how to enable
+			aa.
+
+
+07-Sep-2003 22:16  [wdm.1.25] draw simple test panel
+			create two panels, and make them switch with buttons on
+			top.
+
+
+07-Sep-2003 11:24  [wdm.1.25] wdm doesn't stop if parent wdm process is stopped
+			the problem is in new logging code. parent process
+			should process signals and kill it's child.
+
+
+05-Sep-2003 09:42  [wdm.1.25] last warning
+			I missed one warning :( because of missing --enable-
+			aafont option
+
+
+05-Sep-2003 00:10  [wdm.1.25] fix daemon mode
+			src/wdm/resource.c sets the debug value to 1 by
+			default. It used to be 0 by default. This causes a
+			problem in that a value of 1 prevents wdm from running
+			as a daemon.  Line 140 of src/wdm/dm.c contains an if
+			statement that only calls BecomeDaemon if debugLevel ==
+			0. Reported by Noah Meyerhans <noahm@debian.org>
+
+
+04-Sep-2003 09:42  [wdm.1.25] fix czech translation
+			updated cs.po by Vladimir Nadvornik <nadvornik@suse.cz>
+
+
+02-Sep-2003 22:02  [wdm.1.25] AC_CHECK_DECLS -> AC_DECL_SYS_SIGLIST
+			there's specialized version in autoconf. why not use
+			it? :)
+
+
+01-Sep-2003 22:49  [wdm.1.25] fix warnings
+			due to bug in autoconf `const' was defined to be empty
+			in config.h. that's bad. some warnings disappeared in
+			build environment.
+
+
+31-Aug-2003 22:31  [wdm.1.25] remove support for DECnet and Chaos
+			same sutuation as with STREAMSCONN. I'm not sure that
+			code can work at all.
+
+
+31-Aug-2003 21:12  [wdm.1.25] fix Makefile
+			The distclean rule in Makefile.in never deletes bin/
+			libwdm.a, and consequently the call to rmdir bin fails.
+			Reported by Noah Meyerhans <noahm@debian.org>
+
+
+31-Aug-2003 20:59  [wdm.1.25] fix tarball creation
+			tarball is named .bz2 but compressed with gzip. fix it.
+
+
+31-Aug-2003 19:24  [wdm.1.25] remove support for sysv streams
+			sysv streams was never supported by wdm, there was
+			never option to enable it. I cannot test this code
+			because I dont't have access to OS wih streams. I
+			remove it.
+
+
+31-Aug-2003 17:25  [wdm.1.25] czech translation
+			add czech translation by Vladimir Nadvornik
+			<nadvornik@suse.cz>
+
+
+16-Jul-2003 23:33  [wdm.1.25] rename closeAction function
+
+
+
+03-Jul-2003 12:48  [wdm.1.25] function to add section buttons in wdmPrefs
+			Very basic functions. panels and buttons are not
+			destroyed, views not switching. Just adding buttons.
+
+
+01-Jul-2003 13:01  [wdm.1.25] fix copyright notice in TestLogin
+
+
+
+01-Jul-2003 12:28  [wdm.1.25] spanish translation
+			add spanish translation by Manolo Padron Martinez
+			<manolopm@cip.es>
+
+
+01-Jul-2003 11:48  [wdm.1.25] fix TestLogin
+			TestLogin is broken now, because wdmLogin
+
+
+17-Jun-2003 23:10  [wdm.1.25] run some tests via sudo
+			some tests nned root priviledges. (ie test for
+			switching users functions).
+
+
+17-Jun-2003 17:09  [wdm.1.25] create common parts of interface for wdmPrefs
+			buttons like "close" and "save", section selector,
+			should be common for all sections.
+
+
+15-Jun-2003 20:49  [wdm.1.25] remove old env functions - III
+			replace remaining printEnv and freeEnv with WDMFreeEnv
+			and WDMPrintEnv
+
+
+15-Jun-2003 20:27  [wdm.1.25] remove old env functions - II
+			replace setEnv and putEnv with WDMSetEnv and WDMPutEnv
+
+
+15-Jun-2003 14:55  [wdm.1.25] remove old env functions - I
+			getEnv function replaced with WDMGetEnv
+
+
+15-Jun-2003 12:30  [wdm.1.25] quick fix for dup2/3 problem
+			wdm/wdmlogin communication tied to fd #3, that's bad,
+			because if any other file opened, then communication
+			channel breaks. Solution is to pass filedescriptor as
+			commandline parameter to wdmLogin.
+
+
+13-Jun-2003 11:10  [wdm.1.25] stricter compiler options
+			add -Werror to CFLAGS, so I will never ignore warnings
+			in future. Fix all current warnings
+
+
+12-Jun-2003 23:39  [wdm.1.25] add "en" locale
+			add en.po, replace long default help text string with a
+			lot shorter one. C locale will get only short help
+			text. User should use en locale to get full english
+			help text.
+
+
+12-Jun-2003 10:19  [wdm.1.25] WDMPrintEnv function
+			It's better to have it...
+
+
+11-Jun-2003 17:45  [wdm.1.25] fix install script
+			install part of Makefile should create directory used
+			as fakeroot. If that directory doesn't exists then aa
+			will not work.
+
+
+11-Jun-2003 14:42  [wdm.1.25] GPL notice in prefs.c
+			I forgot to add GPL notice to prefs.c
+
+
+10-Jun-2003 23:13  [wdm.1.25] wdmChooser
+			create wdmChooser skeleton.
+
+
+10-Jun-2003 22:51  [wdm.1.25] wdmPrefs
+			wdmPrefs will support only proplist format configs.
+			first version should support  all options for wdmLogin
+			available in proplist config. (geometry, aafonts,
+			multibyte). This  change will introduce the program
+			skeleton.
+
+
+09-Jun-2003 23:19  [wdm.1.25] automate version numbers
+			get version number from branch
+
+
+09-Jun-2003 11:07  [wdm.1.25] automate build of wdm-current
+			development builds should not build tarball at all.if
+			requested it should build wdm-current.tar.bz2. only
+			integration build creates "real" tarballs
+
+
+09-Jun-2003 00:04  [wdm.1.25] fix ChangeLog
+			after migration to new repository some wrong messages
+			goes into ChangeLog. remove it.
+
+
+08-Jun-2003 23:58  [wdm.1.25] fix problems with bl* symlinks
+			build fails with error 'symlink already exists'
+
+
+07-Jun-2003 13:30  [wdm.1.25] -a option to config
+			animation option should be taken from wdmLogin-config.
+			command line will be here for few releases for
+			compatibility.
+
+
+06-Jun-2003 18:58  [wdm.1.25] prepare for release
+			update NEWS, INSTALL, version in configure.ac
+
+
+06-Jun-2003 17:49  [wdm.1.24] #ifdef parts for antialiasing
+			fonts antialiasing available only in cvs snapshots.
+			Make it conditional.
+
+
+06-Jun-2003 15:46  [wdm.1.24] fix AA
+			wdmLogin crashes when started with AA enabled.
+
+
+05-Jun-2003 17:30  [wdm.1.24] fix i18n build/install
+			if msgfmt is not found Makefile is still tries to
+			create .mo and install it. (reported by vlaad)
+
+
+05-Jun-2003 17:13  [wdm.1.24] geometry option for wdmLogin
+			geometry option will allow wdmLogin panel to be moved
+			and resized. That option will be the first in
+			wdmLogin's own config file.
+
+
+04-Jun-2003 16:49  [wdm.1.24] fix WDMCheckPLDictionary
+			current implementation have some disadvantages.
+
+
+04-Jun-2003 16:16  [wdm.1.24] fix debug test
+			debug test is broken.
+
+
+03-Jun-2003 21:41  [wdm.1.24] add warning to Makefile.in
+			warn that Makefile.in is generated. Also remove some
+			duplicated variables from Makefile.head
+
+
+03-Jun-2003 18:28  [wdm.1.24] fix wstrndup
+			wstrndup was added to WINGs only in cvs snapshots.
+			Replace it with something else(reported by jmmv)
+
+
+03-Jun-2003 17:37  [wdm.1.24] fix compile/link flag
+			results of get-wings-flags changed. update etc/
+			Howto.conf (actual only for my personal computer :) )
+
+
+01-Jun-2003 12:00  [wdm.1.24] prepare for release
+			update NEWS, change version in configure.ac
+
+
+01-Jun-2003 11:28  [wdm.1.23] update man pages
+			describe new options to control logs
+
+
+01-Jun-2003 11:04  [wdm.1.23] fix default debug level
+			error and panic messages should go in log
+
+
+01-Jun-2003 00:08  [wdm.1.23] scripts stderr -> log
+			write function to run scripts and capture stderr and
+			put it into log using WDM... functions.
+
+
+19-May-2003 13:00  [wdm.1.23] fix etc/makefile.cook
+			fix wrong deps for *a,M
+
+
+19-May-2003 10:45  [wdm.1.23] env functions in libwdm
+			reimplement functions to work with environment and
+			remove it from util.c, and put into libwdm/env.c
+
+
+14-May-2003 21:25  [wdm.1.23] add logging options
+			-logfile option will allow to redirect all messages to
+			specified file, -syslog option will allow to redirect
+			all errors, warnings and debug messages to syslog with
+			specified facility.
+
+
+12-May-2003 21:27  [wdm.1.23] use new log functions
+			New logging functions is ready, replace all calls to
+			older functions with newer, remove error.c to ensure no
+			older functions is called anywhere.
+
+
+07-May-2003 21:06  [wdm.1.23] move pixmaps directory
+			patch by Julio Merino <jmmv@menta.net>. "...It adds a
+			new option to configure, --with-gfxdir that allows to
+			change the pixmaps directory; it defaults to $prefix/
+			share/pixmaps/wdm (maybe it's better to set it to
+			$datadir/pixmaps/wdm), and modifies configuration files
+			to adjust paths...."
+
+
+06-May-2003 08:05  [wdm.1.23] remove double check for shmat
+			configure scripts checks for shmat twice. AC_PATH_XTRA
+			does check for shmat, because libX11 needs it.
+			Additional check is removed.
+
+
+06-May-2003 07:52  [wdm.1.23] rewrite code for shadow
+			there's no libshadow on linux system, I'll rewrite
+			portions of code dealing with shadow. shadow code will
+			always be enabled if pam is not used and if shadow.h is
+			found in the system. This code can be disabled with --
+			disable-shadow option to configure script.
+
+
+04-May-2003 22:07  [wdm.1.23] fix typo in configure.ac
+			reported by Michael Buesch <fsdeveloper@yahoo.de>
+
+
+04-May-2003 21:48  [wdm.1.23] remove double check for unistd.h
+			reported by Michael Buesch <fsdeveloper@yahoo.de>
+
+
+04-May-2003 17:36  [wdm.1.23] fix configure.ac
+			AC_DEFINE(USE_PAM... was in section that is executed if
+			libpam was not found.
+
+
+04-May-2003 11:56  [wdm.1.23] better pam/shadow check
+			current defaults (use /etc/passwd) is bad. the better
+			approach will be to check for pam  first,  if it is not
+			present then check for shadow, if it is not present
+			also uset /etc/passwd. Provide options to explicit
+			control what to use
+
+
+02-May-2003 23:41  [wdm.1.23] fix typo in configure.ac
+			silly typo in there... :)
+
+
+02-May-2003 23:36  [wdm.1.23] add --disable-xinerama to configure
+			If anyone will need to disable compiling and linking
+			with xinerama, it can be done :)
+
+
+02-May-2003 23:09  [wdm.1.23] replace compiled-in logo with gradient
+			replace compiled-in wdm logo with nice gradient. It
+			would be much less troubles maintaining code without
+			compiled in pixmap.
+
+
+30-Apr-2003 22:29  [wdm.1.23] remove warnings
+			I hate warnings... The only warning still left is about
+			too long lines in gnuLogo.xpm, which is inclded by
+			default. I'll replace it later with nice gradient.
+
+
+30-Apr-2003 21:17  [wdm.1.23] stricter compiler options
+			Add -Wall -O2 -pedantic options to CFLAGS, so more
+			warning will be on display
+
+
+30-Apr-2003 21:00  [wdm.1.23] enhance set of WDMDebug... functions
+			WDMDebug... functions should have ability to output
+			info using syslog. There should be variants for
+			different message levels. Currently I certainly need
+			WDMWarning and WDMError.
+
+
+26-Apr-2003 16:27  [wdm.1.23] remove message about gfx
+			noted by Steve Lion <steve.lion@verizon.net>
+
+
+26-Apr-2003 11:06  [wdm.1.23] rearrange lines in xinerama code
+			I hate code duplication :).
+
+
+26-Apr-2003 10:48  [wdm.1.23] fix xinerama head option
+			Patch from Carlos Torres <vlaadbrain@operamail.com>.
+
+
+26-Apr-2003 10:37  [wdm.1.23] add option for xinerama
+			option should allow selecting the head on wich to draw
+			wdm panel
+
+
+26-Apr-2003 10:27  [wdm.1.23] rewrite of configure.ac - II
+			merge all additional libs in LIBS, merge LIBXINERAMA in
+			XLIBS. I don't like a lot of LIB* variables. I removed
+			linking to libXt, because login panel uses WINGs
+			instead.
+
+
+25-Apr-2003 22:31  [wdm.1.23] rewrite of configure.ac - I
+			since I'm not supporting ancient versions of WINGs, I
+			can remove a lot of steff from it. Rewrite started by
+			removeing all guessing about needed libraries. Modern
+			WINGs have get-wings-flags script, that report all
+			those flags for me.
+
+
+13-Apr-2003 19:03  [wdm.1.23] basic support for Xcursors
+			add parameter that allow selecting of xcursor theme.
+
+
+08-Apr-2003 20:31  [wdm.1.23] fix ... failed messages
+			all ... failed messages was created at runtime. They
+			don't get into .po's
+
+
+31-Mar-2003 20:43  [wdm.1.23] prepare for release
+			update configure.ac and NEWS
+
+
+30-Mar-2003 22:20  [wdm.1.22] fix shake animation
+			fix shake animation using idea from Michael Buesch
+			<freesoftwaredeveloper@web.de>. remove unneeded timeRem
+			variable.
+
+
+28-Mar-2003 22:28  [wdm.1.22] apply patch for animation
+			Michael Buesch <freesoftwaredeveloper@web.de> sent me a
+			patch for animation roll-up code.
+
+
+28-Mar-2003 22:25  [wdm.1.22] revert back to old main loop
+			with new main loop using WMScreenMainLoop there's no
+			way to see roll-up animation on exit.
+
+
+18-Mar-2003 22:46  [wdm.1.22] updated german translation
+			Michael Buesch <freesoftwaredeveloper@web.de> updated
+			german .po.
+
+
+16-Mar-2003 19:52  [wdm.1.22] german translation
+			add german translation by Michael Buesch
+			<freesoftwaredeveloper@web.de>
+
+
+15-Mar-2003 11:19  [wdm.1.22] add names.c to libwdm
+			names.c will contain functions to work with host names
+			and addresses. supported protocols are ipv4, ipv6.
+			Later these functions will replace netaddr.c fromo xdm.
+			I will not support streams, DECnet and Chaos.
+
+
+11-Mar-2003 23:32  [wdm.1.22] add WDMCheckPLStringOrArray
+			This checker will check if pl is string then return
+			duplicated string, otherwise it will call
+			WDMCheckPLArray.
+
+
+11-Mar-2003 23:02  [wdm.1.22] addnull option to arrayspec
+			if addnull is True, than NULL results from checker will
+			be appended to list as well as non-NULL, otherwise NULL
+			result will be dropped.
+
+
+10-Mar-2003 21:37  [wdm.1.22] add PLAccess resource
+			PLAccess resource will be used instead of Xaccess
+			resource. PLAccess specifies file inproplist format. If
+			PLAccess is not defined then Xaccess with old functions
+			will be used.
+
+
+10-Mar-2003 14:42  [wdm.1.22] unified interface for checkers.
+			plcheckers interface redesigned. WDMCheckPLDictionary
+			added. Now all checkers completely driven with simple
+			data structures. It would be very easy to add new
+			checkers, like WDMCheckPLInteger etc.
+
+
+10-Mar-2003 14:36  [wdm.1.22] add debugging functions to libwdm
+			I need some functions to provide debug info. I don't
+			want to use functions present in xdm. Later new
+			functions will be used in wdm program too
+
+
+04-Mar-2003 22:55  [wdm.1.22] target for creating wdm.pot outside of aegis
+			translatore probably will not be using aegis, so make
+			Makefile a little friendlier for them :)
+
+
+04-Mar-2003 22:32  [wdm.1.22] test plcheckers functions
+			now with new testing scripts, there should be tests for
+			all this functions
+
+
+04-Mar-2003 21:42  [wdm.1.22] fix WDMCheckPLString
+			WDMCheckPLString should always return allocated string.
+
+
+04-Mar-2003 20:46  [wdm.1.22] add LIBS to test scripts
+			LDFLAGS will be added before source file, LIBS will be
+			added after source file to compiler command line
+
+
+04-Mar-2003 20:33  [wdm.1.22] fix test scripts
+			-L should point not just to directory but to bin/
+			subdirectory in it
+
+
+03-Mar-2003 07:55  [wdm.1.22] basic testing scripts
+			I need tests for wdmlib.
+
+
+27-Feb-2003 20:34  [wdm.1.22] fix i18n.cook
+			should use [resolve ...] on source *.po's
+
+
+27-Feb-2003 16:34  [wdm.1.22] explicit project name for ChangeLog gen
+			Use explicit project name for ChangeLog generation, so
+			branches will have full ChangeLog.
+
+
+27-Feb-2003 16:29  [wdm.1.22] autobuild ChangeLog from repository
+			short description of what was done now is only in NEWS
+
+
+27-Feb-2003 16:22  [wdm.1.22] update NEWS
+			update NEWS what have been done so far. Later I can
+			forget to mention something
+
+
+27-Feb-2003 14:14  [wdm.1.22] rename ChangeLog
+			ChangeLog is renamed to ChangeLog.old. New ChangeLog
+			will be generated from repository history.
+
+
+27-Feb-2003 07:59  [wdm.1.22] cook library for creating makefiles
+			create cook library for generating makefiles, it should
+			make makefile.cook a lots more readable.
+
+
+27-Feb-2003 07:04  [wdm.1.22] checks for ar and ranlib
+			configure script should check for ar and ranlib. Every
+			other script should use variables instead of hardcoded
+			values.
+
+
+27-Feb-2003 06:34  [wdm.1.22] simplify options handling
+			no need to duplicate optarg. more accurate forming of
+			command line in Greet.c
+
+
+27-Feb-2003 02:10  [wdm.1.22] use indent on wdmLogin/Login.c
+			I'm about to rewrite lots of code in Login.c. I want to
+			use my style, that is closer to kernel style. Copyright
+			notice changed to more GPLish one. :)
+
+
+27-Feb-2003 01:48  [wdm.1.22] redundant check for '=' in options
+			since wdm in Greet.c never uses '=' to form options
+			passed to wdmLogin, check for '=' in wdmLogin is
+			redundant and should be removed
+
+
+27-Feb-2003 01:41  [wdm.1.22] remove LOGNAME_LEN
+			since LoginName and Password has now unlimited length,
+			LOGNAME_LEN macro is not needed any more.
+
+
+27-Feb-2003 01:38  [wdm.1.22] add wdmLoginConfig resource
+			wdmLoginConfig resource will be passed to wdmLogin
+			program. wdmLogin program will read it and configure
+			itself according to data in that file. This will
+			provide more flexible configuration for wdmLogin and
+			will not tie wdm and wdmLogin as it is now.
+
+
+27-Feb-2003 01:17  [wdm.1.22] add -c option to wdmLogin
+			-c option will be used to pass name of configuration
+			file to wdmLogin. Any login panel-dependand information
+			such as background picture, window geometry etc should
+			go there.
+
+
+27-Feb-2003 00:27  [wdm.1.22] wrappers for WDMCheck...
+			wdmlib should provide a way to convert checkers into
+			void*(*)(void*,void*).
+
+
+27-Feb-2003 00:09  [wdm.1.22] add WDMCheckPLArray
+			WDMCheckPLArray will check for correctness of array
+			with repeated elements.
+
+
+26-Feb-2003 23:32  [wdm.1.22] add WDMCheckPLString
+			WDMCheckPLString would check if pl is a string
+
+
+26-Feb-2003 23:11  [wdm.1.22] remove dummy.c
+			since we have real library sources, we don't need
+			dummy.c any more.
+
+
+26-Feb-2003 22:57  [wdm.1.22] start plcheckers.c part of libwdm
+			plcheckers.c will contain function to check correctness
+			of property lists, used as configuration data.
+
+
+26-Feb-2003 22:54  [wdm.1.22] fix library compilation flags
+			libwdm shoud be compiled with all x11flags
+
+
+26-Feb-2003 22:04  [wdm.1.22] bugfix release (clone of 2.D003)
+			1.22.1
+
+
+26-Feb-2003 21:57  [wdm.1.22] fix pam service name (clone of 2.D002)
+			service name should wdm, not xdm
+
+
+26-Feb-2003 21:49  [wdm.1.22] fix makefile to build library
+			makefile is now broken, it doesn't create library, so
+			nothing is built.
+
+
+26-Feb-2003 21:10  [wdm.1.22] library build script
+			library of common functions will be very useful.
+			duumy.c is provided so library will be created.
+
+
+26-Feb-2003 10:52  [wdm.1.22] s/xdm/wdm/ in mans
+			there's a lot of mentions of xdm where wdm should be
+
+
+20-Feb-2003 00:53  [wdm.1.22] fix segfault
+			when I choose Reboot or Halt there's segfault, probably
+			because of new handling of LoginName and LoginPswd
+
+
+16-Feb-2003 13:41  [wdm.1.22] remove limits on login and password
+			From: voins@voins.program.ru
+			Date: Sun Feb 16 13:41:23 2003
+
+			no more limits!
+
+
+15-Feb-2003 21:14  [wdm.1.22] simplify wdmLogin: remove dpy and screen_number
+			dpy global variable is not really needed, everything is
+			already present in WMScreen structure. screen_number is
+			not needed also.
+
+
+15-Feb-2003 13:11  [wdm.1.22] i18n - III, translate help message
+			rearrange help message, so it will not require
+			snprintf, just strcat. HelpFile global variable removed
+
+
+15-Feb-2003 11:03  [wdm.1.22] use wstrdup
+			replace malloc/strcpy pairs with wstrdup call. It is
+			better, because wstrdup uses wmalloc that never returns
+			NULL pointer.
+
+
+14-Feb-2003 00:01  [wdm.1.22] simplify wdmLogin: remove old code
+			there's a lot of code for ancient versions of WINGs.
+			remove this code or replace with proper new code.
+
+
+13-Feb-2003 23:58  [wdm.1.22] smooth scale is cli option
+			specify -s to disable smooth scaling
+
+
+09-Feb-2003 19:17  [wdm.1.22] prepare for release
+			change version number, check that everything is ok
+
+
+09-Feb-2003 18:39  [wdm.1.21] update wdmLogin.man
+			wdmLogin.man should contain information about
+			translations
+
+
+09-Feb-2003 17:28  [wdm.1.21] update ChangeLog and NEWS
+			none
+
+
+08-Feb-2003 18:43  [wdm.1.21] resize menu
+			russian translation for 'reboot' is too long. It can be
+			shorten. I'll widen options popup a little
+
+
+08-Feb-2003 18:24  [wdm.1.21] i18n - II
+			translate all other strings
+
+
+08-Feb-2003 13:53  [wdm.1.21] update man page
+			update man page to reflect i18n changes in config
+
+
+08-Feb-2003 13:43  [wdm.1.21] some locale settings in config
+			language resource in wdm-config if defined will be used
+			instead of default root locale
+
+
+08-Feb-2003 11:01  [wdm.1.21] include locale.h
+
+
+
+07-Feb-2003 23:15  [wdm.1.21] use configured paths to xgettext and msgfmt
+			replace hardcoded paths with values from configure
+			script
+
+
+07-Feb-2003 22:58  [wdm.1.21] xgettext should not affect I18N
+			xgettext used only in development, I18N should be
+			undefined if there's no msgfmt program
+
+
+07-Feb-2003 22:28  [wdm.1.21] check for msgfmt
+			check for msgfmt program in configure
+
+
+07-Feb-2003 22:23  [wdm.1.21] update README and	 AUTHORS
+			its out f date
+
+
+07-Feb-2003 20:55  [wdm.1.21] short ja.po
+			add short version of ja.po
+
+
+07-Feb-2003 08:03  [wdm.1.21] short ru.po
+			add short ru.po, and update build system to create *.mo
+			from *.po
+
+
+06-Feb-2003 22:02  [wdm.1.21] i18n - I
+			translate 100% static strings
+
+
+06-Feb-2003 07:47  [wdm.1.21] check for libintl.h
+			need to check for libintl.h header
+
+
+05-Feb-2003 07:58  [wdm.1.21] test for gettext in configure
+			add gettext test in configure.ac
+
+
+02-Feb-2003 18:05  [wdm.1.21] remove WmOption variable
+			same with OptionStr. it isn't really needed.
+
+
+02-Feb-2003 17:10  [wdm.1.21] remove OptionStr variable
+			I don't see any need in that. all info already present
+			in ExitStr array.
+
+
+01-Feb-2003 16:27  [wdm.1.21] smooth scaling
+			use smooth scaling if available
+
+
+31-Jan-2003 23:21  [wdm.1.21] unlimit WM list
+			list of window managers should not be limited to 14
+
+
+31-Jan-2003 23:04  [wdm.1.21] The "wdm" program, branch 1.
+			Migration to newer xdm base
+
+
+31-Jan-2003 00:07  [wdm.1.21] enable creation of tar.bz2
+			it is useful to provide both on site
+
+
+30-Jan-2003 08:04  [wdm.1.21] update TODO list
+			new items in TODO list, so everyone can see it.
+
+
+05-Jan-2003 22:29  [wdm.1.21] prepare for release
+			this will be wdm-1.21. Fix README files. update
+			ChangeLog file.
+
+
+14-Dec-2002 12:33  [wdm.1.20] clean and distclean targets
+			add clean and distclean targets to generated Makefile
+
+
+13-Dec-2002 22:53  [wdm.1.20] apply debian patch
+			extract everything useful from debian patch and apply
+			it.
+
+
+13-Dec-2002 19:52  [wdm.1.20] program list
+			create list of prorams dynamically
+
+
+12-Dec-2002 17:18  [wdm.1.20] pixmaps install
+			rearrange and install pixmaps
+
+
+10-Dec-2002 16:16  [wdm.1.20] configs install
+			move configs from src/config to config, dynamically
+			calculate files to build and files to install
+
+
+10-Dec-2002 16:15  [wdm.1.20] fix list of project files
+			if aegis -l pf called without change number it doesn't
+			exclude removed files.
+
+
+10-Dec-2002 13:36  [wdm.1.20] create Makefile.head
+			Put all variables in /** */ comments into Makefile.head
+
+
+10-Dec-2002 13:25  [wdm.1.20] the last (i think) try
+
+
+
+10-Dec-2002 13:20  [wdm.1.20] fix integration build again
+			another attempt to fix integration build
+
+
+10-Dec-2002 13:13  [wdm.1.20] fix integration build
+			build failed because of use of PACKAGE_VERSION
+			variable, that can be undefined if Howto.conf is not
+			created yet.
+
+
+10-Dec-2002 13:12  [wdm.1.20] fix build deps
+			all %.0 should depend on etc/Howto.conf because of
+			compilation flags.
+
+
+09-Dec-2002 15:37  [wdm.1.20] install mans
+			man installation is calculated based on *.man sources
+			in project
+
+
+06-Dec-2002 16:08  [wdm.1.20] install target
+			add install target to generated Makefile. Only basic
+			install is done. A lot of things to automate. A lot of
+			things to install
+
+
+06-Dec-2002 15:19  [wdm.1.20] add generated files to configure.ac
+			add generated files to configure.ac: they will be
+			generated when building outside of aegis environment,
+			and will not when building using aegis? because of --
+			no-create option.
+
+
+06-Dec-2002 14:26  [wdm.1.20] build mans
+			build mans for doc directory
+
+
+05-Dec-2002 10:11  [wdm.1.20] fix tarball name
+			tarball name constructed using PACKAGE_VERSION
+
+
+05-Dec-2002 10:04  [wdm.1.20] fix integration build
+			some operations must be performed twice. may be because
+			of removal of targets second attempt is successfull.
+
+
+04-Dec-2002 17:28  [wdm.1.20] split up Howto.conf
+			split up Howto.conf by parts, to fine tune dependencies
+
+
+04-Dec-2002 16:05  [wdm.1.20] generate Makefile
+			generate Makefile able to build wdm.
+
+
+04-Dec-2002 13:38  [wdm.1.20] build
+			create build system
+
+
+03-Dec-2002 16:52  [wdm.1.20] rearrange files
+			rearrange files in src by program
+
+
+03-Dec-2002 16:22  [wdm.1.20] remove unused tests
+			some test results is never used. remove them
+
+
+03-Dec-2002 16:10  [wdm.1.20] fill in Howto.conf
+			create parameters to fill in by configure in Howto.conf
+
+
+03-Dec-2002 15:47  [wdm.1.20] create tarball
+			create simple tarball with confiugure included in it
+
+
+03-Dec-2002 13:15  [wdm.1.20] remove dep on automake
+			automake is no longer needed. currently the build is
+			broken. no build at all? except for generated configs.
+
+
+02-Dec-2002 17:37  [wdm.1.20] fix Xclients and build proces
+			build process is broken somehow.
+
+
+02-Dec-2002 17:22  [wdm.1.20] configure.in -> configure.ac
+			rename it
+
+
+02-Dec-2002 17:18  [wdm.1.20] remove generating from configure.in
+			remove generating of wdm configs from configure.in. put
+			it into etc/Howto.cook.
+
+
+02-Dec-2002 16:53  [wdm.1.20] remove remaining generated configs
+			none
+
+
+02-Dec-2002 15:29  [wdm.1.20] remove generated wdm-config
+			remove generated wdm-config from sources and generate
+			it from configure script.
+
+
+02-Dec-2002 13:47  [wdm.1.20] another change in configure.in
+			rearrange tests
+
+
+02-Dec-2002 10:14  [wdm.1.20] remove old autoconf files
+			config.h.in is now always generated by autogen.sh.
+			acconfig.h is not needed for autoconf >= 2.5
+
+
+29-Nov-2002 15:57  [wdm.1.20] rewrite configure.in
+			configure.in is bad. rewrite.
+
+
+28-Nov-2002 16:36  [wdm.1.20] remove checks for xdm sources
+			xdm sources is not required. src/ dir has all sources
+			needed to build wdm
+
+
+28-Nov-2002 15:37  [wdm.1.20] remove warnings
+			remove annoying warnings
+
+
+28-Nov-2002 14:21  [wdm.1.20] fix configure.in
+			current configure requires hacks to allow header files
+			inclusion from /usr/X11R6/include.
+
+
+28-Nov-2002 11:54  [wdm.1.20] remove patches directory
+			all patches already applied. patches dir is not needed
+			any more.
+
+
+28-Nov-2002 11:41  [wdm.1.20] change directory structure
+			unpack xdm....tar.gz, copy sources, apply patches, and
+			remove that part from Makefile.am
+
+
+27-Nov-2002 17:33  [wdm.1.20] apply wrlib patch
+			apply wrlib patch I use in building wdm package for ALT
+			Linux
+
+
+27-Nov-2002 17:28  [wdm.1.20] apply longpasswd patch
+			apply longpasswd patch I use in building wdm package
+			for ALT Linux
+
+
+27-Nov-2002 17:24  [wdm.1.20] apply vns2 patch
+			apply vns2 patch I use in building wdm package for ALT
+			Linux
+
+
+27-Nov-2002 16:54  [wdm.1.20] fix build
+			fix wdmpam patch in patches dir.
+
+
+27-Nov-2002 16:41  [wdm.1.20] fix mkinstalldirs
+			remove rcs keyword from it
+
+
+27-Nov-2002 16:39  [wdm.1.20] import sources & skeleton config
+			import existing sources of wdm-1.20, create basic
+			config that allows building of wdm
+
+
