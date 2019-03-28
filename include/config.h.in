@@ -1,0 +1,155 @@
+/* include/config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Value is a path to default authdir */
+#undef DEF_AUTH_DIR
+
+/* Value is a path to default chooser program */
+#undef DEF_CHOOSER
+
+/* Value is a path for program used as failsafe client */
+#undef DEF_FAILSAFE_CLIENT
+
+/* Value is default command to start X server */
+#undef DEF_SERVER_LINE
+
+/* Value is a command for default session */
+#undef DEF_SESSION
+
+/* "Value is a list of paths for superuser sessions" */
+#undef DEF_SYSTEM_PATH
+
+/* "Value is a list of paths for user sessions" */
+#undef DEF_USER_PATH
+
+/* Value is a path to default wdmLogin config file */
+#undef DEF_WDMLOGIN_CONFIG
+
+/* Value is a path to default wdm config file */
+#undef DEF_XDM_CONFIG
+
+/* what to use as HOME value */
+#undef FAKEHOME
+
+/* Define to 1 if you have the declaration of `sys_siglist', and to 0 if you
+   don't. */
+#undef HAVE_DECL_SYS_SIGLIST
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `crypt' library (-lcrypt). */
+#undef HAVE_LIBCRYPT
+
+/* Define to 1 if you have the <libintl.h> header file. */
+#undef HAVE_LIBINTL_H
+
+/* Define to 1 if you have the `ucb' library (-lucb). */
+#undef HAVE_LIBUCB
+
+/* Define to 1 if you have the `util' library (-lutil). */
+#undef HAVE_LIBUTIL
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have mkstemp function to use it instead of mktemp. */
+#undef HAVE_MKSTEMP
+
+/* Define if libpam is installed */
+#undef HAVE_PAM_LIB
+
+/* Define if libselinux is installed */
+#undef HAVE_SELINUX_LIB
+
+/* Define to 1 if you have the <shadow.h> header file. */
+#undef HAVE_SHADOW_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <syslog.h> header file. */
+#undef HAVE_SYSLOG_H
+
+/* Define to 1 if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if Xinerama library is installed */
+#undef HAVE_XINERAMA
+
+/* Define if you want internationalization support */
+#undef I18N
+
+/* where to look for locale files */
+#undef NLSDIR
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define if you want support for antialiased fonts */
+#undef USE_AA
+
+/* Define if you want wdm to use pam for auth */
+#undef USE_PAM
+
+/* Value is a path to wdm directory */
+#undef WDMDIR
+
+/* Value is a path to the pixmaps directory */
+#undef WGFXDIR
+
+/* Define if you want to have ExitLogin */
+#undef WITH_EXITLOGIN
+
+/* Define if you want wdm to be compiled with SELinux support */
+#undef WITH_SELINUX
+
+/* Value is a path for xrdb program */
+#undef XRDB_PROGRAM
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
+
+/* Define to `unsigned' if <sys/types.h> does not define. */
+#undef size_t
