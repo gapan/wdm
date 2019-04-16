@@ -33,15 +33,7 @@ Comments, bug reports, and corrections (patches) for other systems
 are appreciated.
 
 
-Homepage for wdm is at
-	http://voins.program.ru/wdm/
-
-Old wdm mailing list is dead (AFAIK). You can subscribe to new
-wdm mailing list at
-	http://lrn.ru/mailman/listinfo/wdm/
-
-There's IRC channel #wdm at irc.ornet.ru.
-
---
-Alexey Voinov <voins@voins.program.ru>
-
+This is a fork of the wdm code found at:
+	https://github.com/voins/wdm
+which seems abandoned. I have added some patches found in Debian. We'll see if
+I develop it any further, I may have some interest in it for Salix.
