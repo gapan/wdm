@@ -3,7 +3,7 @@ wdm -- WINGs Display Manager
 Wdm combines the functions of a graphical display manager identifying and
 authenticating a user on a system with some of the functions of a
 session manager in selecting and starting a window manager.  Optionally,
-wdm can shutdwn (rebott or halt) the system.
+wdm can shutdown (reboot or halt) the system.
 
 Wdm is a modification of XFree86's xdm package for graphically
 handling authentication and system login.  Most of xdm has been
